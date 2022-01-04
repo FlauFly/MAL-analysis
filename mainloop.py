@@ -60,14 +60,15 @@ def delete_colon(text):
     text_list = text_list[:-1]
     return "".join(text_list)
 
-page_number = 19100
+# page_number = 19100
+page_number = 0
 URL = "https://myanimelist.net/topanime.php?limit={}".format(page_number)
 html = parsify_url(URL)
 
 find_next = html.find_all('a', class_="link-blue-box next")
 table = []
 
-while True:
+while True or page_number == 1000:
     # Test tracking
     os.system('clear')
     print(page_number)
@@ -86,7 +87,7 @@ while True:
     page_number += 50
     find_next = html.find_all('a', class_="link-blue-box next")
     if not find_next:
-        break
+        break 
 
 df = pd.DataFrame(table)
 df.to_csv('out.csv', index=False)
